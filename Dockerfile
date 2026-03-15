@@ -29,6 +29,13 @@ RUN pnpm run build
 # --------------- Stage 2: Serve ---------------
 FROM nginx:alpine AS server
 
+LABEL org.opencontainers.image.title="Vue.js Docs Offline" \
+      org.opencontainers.image.description="Full Vue.js 3 documentation served offline. Includes guides, API reference, tutorial, interactive REPL, and local search. No internet required." \
+      org.opencontainers.image.url="https://github.com/EliShteinman/vue-docs-offline" \
+      org.opencontainers.image.source="https://github.com/EliShteinman/vue-docs-offline" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.vendor="EliShteinman"
+
 # Remove default nginx config
 RUN rm /etc/nginx/conf.d/default.conf
 
