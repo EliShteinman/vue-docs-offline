@@ -26,6 +26,9 @@ RUN chmod +x docker/patch-offline.sh && bash docker/patch-offline.sh /app
 # Build the static site
 RUN pnpm run build
 
+# Remove Google Fonts @import from built CSS (injected by @vue/theme)
+RUN find .vitepress/dist -name '*.css' -exec sed -i 's/@import "[^"]*fonts\.googleapis\.com[^"]*";//g' {} +
+
 # --------------- Stage 2: Serve ---------------
 FROM nginx:alpine AS server
 

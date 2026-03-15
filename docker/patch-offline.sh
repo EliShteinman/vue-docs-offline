@@ -130,4 +130,25 @@ fs.writeFileSync('${CONFIG_FILE}', c, 'utf-8');
 console.log('    Config patched successfully');
 "
 
+# -----------------------------------------------------------------------------
+# 5. Patch sponsors.ts to disable external fetch
+# -----------------------------------------------------------------------------
+echo "==> Patching sponsors to disable external fetch..."
+
+SPONSORS_FILE="${PROJECT_DIR}/.vitepress/theme/components/sponsors.ts"
+sed -i 's|`https://automation.vuejs.org`|`/sponsors-stub`|g' "${SPONSORS_FILE}"
+
+# Create a local stub data.json for sponsors
+mkdir -p "${PUBLIC_DIR}/sponsors-stub"
+cat > "${PUBLIC_DIR}/sponsors-stub/data.json" << 'SPONSOREOF'
+{
+  "special": [],
+  "platinum": [],
+  "platinum_china": [],
+  "gold": [],
+  "silver": [],
+  "bronze": []
+}
+SPONSOREOF
+
 echo "==> Offline patching complete!"
