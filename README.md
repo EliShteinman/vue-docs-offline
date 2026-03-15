@@ -4,6 +4,15 @@ Full offline build of the [Vue.js documentation](https://vuejs.org), packaged as
 
 ## Quick Start
 
+### From Docker Hub
+
+```bash
+docker pull a0533057932/vue-docs-offline:latest
+docker run -d -p 8080:80 --name vue-docs a0533057932/vue-docs-offline:latest
+```
+
+Open http://localhost:8080
+
 ### From GitHub Container Registry
 
 ```bash
@@ -25,7 +34,6 @@ docker rm vue-docs
 ```bash
 git clone https://github.com/EliShteinman/vue-docs-offline.git
 cd vue-docs-offline
-git checkout feature/offline-docker
 docker compose up -d
 ```
 
@@ -61,7 +69,7 @@ Algolia is replaced with VitePress built-in local search.
 Change the port by modifying the `-p` flag:
 
 ```bash
-docker run -d -p 3000:80 ghcr.io/elishteinman/vue-docs-offline:latest
+docker run -d -p 3000:80 a0533057932/vue-docs-offline:latest
 ```
 
 ## Tags
@@ -70,6 +78,11 @@ docker run -d -p 3000:80 ghcr.io/elishteinman/vue-docs-offline:latest
 |---|---|
 | `latest` | Most recent build |
 | `1.0.0` | First stable release |
+
+## Links
+
+- [Docker Hub](https://hub.docker.com/r/a0533057932/vue-docs-offline)
+- [GitHub](https://github.com/EliShteinman/vue-docs-offline)
 
 ## License
 
