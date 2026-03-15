@@ -1,28 +1,77 @@
-# vuejs.org
+# Vue.js Docs - Offline Docker
 
-## Contributing
+Full offline build of the [Vue.js documentation](https://vuejs.org), packaged as a Docker image. No internet connection required after pulling the image.
 
-This site is built with [VitePress](https://github.com/vuejs/vitepress) and depends on [@vue/theme](https://github.com/vuejs/vue-theme). Site content is written in Markdown format located in `src`. For simple edits, you can directly edit the file on GitHub and generate a Pull Request.
+## Quick Start
 
-For local development, [pnpm](https://pnpm.io/) is preferred as package manager:
-
-```bash
-pnpm i
-pnpm run dev
-```
-
-This project requires Node.js to be `v20` or higher. And it is recommended to enable corepack:
+### From GitHub Container Registry
 
 ```bash
-corepack enable
+docker pull ghcr.io/elishteinman/vue-docs-offline:latest
+docker run -d -p 8080:80 --name vue-docs ghcr.io/elishteinman/vue-docs-offline:latest
 ```
 
-## Working on the content
+Open http://localhost:8080
 
-- See VitePress docs on supported [Markdown Extensions](https://vitepress.dev/guide/markdown) and the ability to [use Vue syntax inside markdown](https://vitepress.dev/guide/using-vue).
+### Stop / Remove
 
-- See the [Writing Guide](https://github.com/vuejs/docs/blob/main/.github/contributing/writing-guide.md) for our rules and recommendations on writing and maintaining documentation content.
+```bash
+docker stop vue-docs
+docker rm vue-docs
+```
 
-## Working on the theme
+## Build From Source
 
-If changes need to be made for the theme, check out the [instructions for developing the theme alongside the docs](https://github.com/vuejs/vue-theme#developing-with-real-content).
+```bash
+git clone https://github.com/EliShteinman/vue-docs-offline.git
+cd vue-docs-offline
+git checkout feature/offline-docker
+docker compose up -d
+```
+
+Open http://localhost:8080
+
+## What's Included
+
+- Full Vue.js 3 documentation (guides, API reference, tutorial, examples)
+- Interactive REPL with locally bundled Vue runtime
+- VitePress local search (replaces Algolia)
+- All CDN dependencies downloaded locally (Vue, marked, lodash-es, js-confetti)
+
+## What's Removed
+
+| Component | Reason |
+|---|---|
+| Fathom Analytics | External tracking service |
+| Bitterbrains Ads | External ad network |
+| Carbon Ads | External ad network |
+| Algolia DocSearch | Requires external API calls |
+
+Algolia is replaced with VitePress built-in local search.
+
+## Platform Support
+
+| Architecture | Supported |
+|---|---|
+| linux/amd64 | Yes |
+| linux/arm64 | Yes |
+
+## Configuration
+
+Change the port by modifying the `-p` flag:
+
+```bash
+docker run -d -p 3000:80 ghcr.io/elishteinman/vue-docs-offline:latest
+```
+
+## Tags
+
+| Tag | Description |
+|---|---|
+| `latest` | Most recent build |
+| `1.0.0` | First stable release |
+
+## License
+
+The Vue.js documentation is licensed under [MIT](https://opensource.org/licenses/MIT).
+This Docker packaging is an independent community contribution.
