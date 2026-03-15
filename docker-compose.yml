@@ -1,0 +1,9 @@
+services:
+  vue-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vue-docs-offline
+    ports:
+      - "8080:80"
+    restart: unless-stopped
